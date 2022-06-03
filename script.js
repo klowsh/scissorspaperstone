@@ -1,5 +1,7 @@
 // Project 1: Scissors Paper Stone
 
+// New comment!
+
 // Scissors take on value 2
 // Paper take on value 1
 // Stone take on value 0
