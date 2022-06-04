@@ -11,6 +11,7 @@ For stone to win scissors, will need -2 */
 // Global Variables for win-loss record and usernmae
 var computerWins = 0;
 var playerWins = 0;
+var totalPlays = 0;
 
 var currentGameMode = "waiting for username";
 var userName = "";
@@ -23,45 +24,50 @@ var main = function (input) {
 
   var myOutputValue = "";
 
-  // if (currentGameMode == "waiting for username") {
-  //   // set input as userName
-  //   userName = input;
+  // Game mode set to ask for username
+  if (currentGameMode == "waiting for username") {
+    // set input as userName
+    userName = input;
 
-  //   // change game mode to scissorspaperstone
-  //   currentGameMode = "scissors paper stone game";
+    // change game mode to scissorspaperstone
+    currentGameMode = "scissors paper stone game";
 
-  //   myOutputValue = `Hello ${userName}! Thank you for playing Scissors Paper Stone. <br> To start, please type in "scissors", "paper", or "stone".`;
-  // } else if ((currentGameMode = "scissors paper stone game")) {
-  //   // Will need to put in a fuction here to play game
-  // }
+    myOutputValue = `Hello ${userName}! <br> <br> Thank you for playing Scissors Paper Stone. <br> <br> To start, please type in "scissors", "paper", or "stone". The game will only accept the above inputs.`;
 
-  // Assign numerical value to player's scissors paper stone
-  var playerScissorsPaperStone = 0;
-  var myOutputValue = "";
+    // Once username has been set, to allow game to play
+  } else if ((currentGameMode = "scissors paper stone game")) {
+    // Assign numerical value to player's scissors paper stone
+    if (input == "scissors") {
+      var playerScissorsPaperStone = 2;
+      console.log("player scissors");
+      console.log(playerScissorsPaperStone);
+    } else if (input == "paper") {
+      playerScissorsPaperStone = 1;
+      console.log("player paper");
+      console.log(playerScissorsPaperStone);
+    } else if (input == "stone") {
+      playerScissorsPaperStone = 0;
+      console.log("player stone");
+      console.log(playerScissorsPaperStone);
+    } else {
+      // input validation
+      myOutputValue = `You have entered an invalid entry. Please enter the follwing only "scissors", "paper" or "stone".`;
+      return myOutputValue;
+    }
 
-  if (input === "scissors") {
-    playerScissorsPaperStone = 2;
-    console.log("player scissors");
-    console.log(playerScissorsPaperStone);
-  } else if (input == "paper") {
-    playerScissorsPaperStone = 1;
-    console.log("player paper");
-    console.log(playerScissorsPaperStone);
-  } else if (input === "stone") {
-    playerScissorsPaperStone = 0;
-    console.log("player stone");
-    console.log(playerScissorsPaperStone);
-  } else {
-    // input validation
-    myOutputValue = `You have entered an invalid entry. Please enter the follwing only "scissors", "paper" or "stone".`;
+    myOutputValue = playGame(playerScissorsPaperStone, compScissorsPaperStone);
   }
+  return myOutputValue;
+};
 
+var playGame = function (playerScissorsPaperStone, compScissorsPaperStone) {
+  var myOutputValue = "";
   // player stone, computer scissors, player wins, computer loses
   if (playerScissorsPaperStone - compScissorsPaperStone == -2) {
     console.log("player stone, computer scissors, player wins, computer loses");
     playerWins = playerWins + 1;
     computerWins = computerWins;
-    myOutputValue = `You win! The computer loses.`;
+    myOutputValue = `The computer chose scissors. <br> You chose stone. <br> You win! The computer loses.`;
   }
 
   // player scissors, computer stone, player loses, computer win
@@ -69,7 +75,7 @@ var main = function (input) {
     console.log("player scissors, computer stone, player loses, computer win");
     playerWins = playerWins;
     computerWins = computerWins + 1;
-    myOutputValue = `You lose! The computer wins.`;
+    myOutputValue = `The computer chose stone. <br> You chose scissors. <br> You lose! The computer wins.`;
   }
 
   // player wins - player scissors, computer paper OR player paper, computer stone
@@ -79,7 +85,13 @@ var main = function (input) {
     );
     playerWins = playerWins + 1;
     computerWins = computerWins;
-    myOutputValue = `You win! The computer loses.`;
+    if (playerScissorsPaperStone == 2) {
+      // scissors assigned value 2
+      myOutputValue = `The computer chose paper. <br> You chose scissors. <br> You win! The computer loses.`;
+    } else if (playerScissorsPaperStone == 1) {
+      // paper assigned value 1
+      myOutputValue = `The computer chose stone. <br> You chose paper. <br> You win! The computer loses.`;
+    }
   }
 
   // computer wins - computer scissors, player paper OR computer paper, player stone
@@ -89,7 +101,13 @@ var main = function (input) {
     );
     playerWins = playerWins;
     computerWins = computerWins + 1;
-    myOutputValue = `You lose! The computer wins.`;
+    if (playerScissorsPaperStone == 0) {
+      // stone assigned value 0
+      myOutputValue = `The computer chose paper. <br> You chose stone. <br> You lose! The computer wins.`;
+    } else if (playerScissorsPaperStone == 1) {
+      // paper assigned value 1
+      myOutputValue = `The computer chose scissors. <br> You chose paper. <br> You lose! The computer wins.`;
+    }
   }
   // tie
   else if (playerScissorsPaperStone == compScissorsPaperStone) {
@@ -98,9 +116,14 @@ var main = function (input) {
     playerWins = playerWins;
   }
 
+  totalPlays = totalPlays + 1;
+  var percentageWin = (playerWins / totalPlays) * 100;
+
   return (
     myOutputValue +
-    `current score for player is ${playerWins} and for computer is ${computerWins}`
+    `<br> <br> The current score is: <br>${userName}: ${playerWins} <br> Computer: ${computerWins} <br< Total Games Played: ${totalPlays} <br> <br> Your total win percentage is ${percentageWin.toFixed(
+      2
+    )} <br> <br> Now you can type "scissors", "paper" or "stone" to play another round! `
   );
 };
 
