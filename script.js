@@ -116,14 +116,14 @@ var playGame = function (playerScissorsPaperStone, compScissorsPaperStone) {
     playerWins = playerWins;
   }
 
-  totalPlays = totalPlays + 1;
+  totalPlays = playerWins + computerWins;
   var percentageWin = (playerWins / totalPlays) * 100;
 
   return (
     myOutputValue +
     `<br> <br> The current score is: <br>${userName}: ${playerWins} <br> Computer: ${computerWins} <br< Total Games Played: ${totalPlays} <br> <br> Your total win percentage is ${percentageWin.toFixed(
       2
-    )} <br> <br> Now you can type "scissors", "paper" or "stone" to play another round! `
+    )}% <br> <br> Now you can type "scissors", "paper" or "stone" to play another round! `
   );
 };
 
