@@ -22,7 +22,7 @@ var main = function (input) {
   console.log("opponent");
   console.log(compScissorsPaperStone);
 
-  var myOutputValue = "";
+  var myOutputValue = "Hello";
 
   // Game mode set to ask for username
   if (currentGameMode == "waiting for username") {
