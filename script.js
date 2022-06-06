@@ -26,13 +26,18 @@ var main = function (input) {
 
   // Game mode set to ask for username
   if (currentGameMode == "waiting for username") {
-    // set input as userName
-    userName = input;
+    // set input as userName, with input validation
+    if (!input) {
+      myOutputValue = `Please enter your username.`;
+      return myOutputValue;
+    } else {
+      // change game mode to scissorspaperstone
 
-    // change game mode to scissorspaperstone
-    currentGameMode = "scissors paper stone game";
+      userName = input;
+      currentGameMode = "scissors paper stone game";
 
-    myOutputValue = `Hello ${userName}! <br> <br> Thank you for playing Scissors Paper Stone. <br> <br> To start, please type in "scissors", "paper", or "stone". The game will only accept the above inputs.`;
+      myOutputValue = `Hello ${userName}! <br> <br> Thank you for playing Scissors Paper Stone. <br> <br> To start, please type in "scissors", "paper", or "stone". The game will only accept the above inputs.`;
+    }
 
     // Once username has been set, to allow game to play
   } else if ((currentGameMode = "scissors paper stone game")) {
